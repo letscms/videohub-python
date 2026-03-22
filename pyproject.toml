@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "videohub-python"
-version = "1.1.1"
+version = "1.1.2"
 description = "Official VideoHub Python SDK for building video, audio, and screen sharing applications."
 readme = "README.md"
 requires-python = ">=3.9"
 license = {file = "LICENSE"}
 authors = [
-  {name="Letscms", email="videohubsupport@letscms.com"}
+  {name="Letscms", email="support@videohub.dev"}
 ]
 
 keywords = [
@@ -46,8 +46,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://videohub.askjitendra.com"
-Documentation = "https://docs.videohub.askjitendra.com"
+Homepage = "https://videohub.dev"
+Documentation = "https://docs.videohub.dev"
 Repository = "https://github.com/letscms/videohub-python"
 Issues = "https://github.com/letscms/videohub-python/issues"
 
