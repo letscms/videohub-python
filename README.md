@@ -1,14 +1,14 @@
 # VideoHub Python SDK
 
-Official Python SDK for **VideoHub** – build video calls, audio rooms, and real-time communication applications easily.
+Official Python SDK for VideoHub – build video calls, audio rooms, and real-time communication applications with ease.
 
-VideoHub helps developers integrate **video conferencing, audio rooms, screen sharing, and real-time communication** into their applications with simple APIs.
+VideoHub enables developers to integrate video conferencing, audio rooms, real-time chat, AI chatbot integration, screen sharing, and real-time communication into their applications using simple APIs.
 
 ---
 
 ## Installation
 
-Install the SDK from PyPI:
+Install from PyPI:
 
 ```bash
 pip install videohub-python
@@ -18,18 +18,24 @@ pip install videohub-python
 
 ## Requirements
 
-* Python **3.9+**
+* Python 3.9+
+* Python 3.11+ (recommended)
 * VideoHub API Key
-* App credentials (App ID & App Secret)
+* App credentials:
+
+  * App ID
+  * App Secret
+  * App Platform (`web`, `android`, `ios`)
+  * App Identifier (domain or package name)
 
 ---
 
 ## Quick Start
 
 ```python
-from videohub import VideoHubClient, VideoHubConfig
+from videohub.client import Client
 
-config = VideoHubConfig(
+client = Client(
     api_key="vhub_live_xxxxxxxxx",
     app_id="your_app_id",
     app_secret="your_app_secret",
@@ -37,13 +43,14 @@ config = VideoHubConfig(
     app_identifier="example.com"
 )
 
-client = VideoHubClient(config)
-
-# Example: create a room token
-token = client.rooms.create_token(
+# Create a room
+client.rooms.create(
     room_name="my-room",
-    user_id="user_123"
+    max_participants=5
 )
+
+# Generate a host token
+token = client.rooms.host_token("my-room")
 
 print(token)
 ```
@@ -52,7 +59,7 @@ print(token)
 
 ## Authentication
 
-All requests require the following credentials:
+All API requests require the following credentials:
 
 | Field          | Description                          |
 | -------------- | ------------------------------------ |
@@ -62,23 +69,9 @@ All requests require the following credentials:
 | App Platform   | `web`, `android`, or `ios`           |
 | App Identifier | Domain or package name               |
 
-Example configuration:
-
-```python
-config = VideoHubConfig(
-    api_key="vhub_live_xxxxx",
-    app_id="app_uuid",
-    app_secret="secret_xxxxx",
-    app_platform="web",
-    app_identifier="example.com"
-)
-```
-
 ---
 
 ## Features
-
-The VideoHub Python SDK supports:
 
 * Video calling
 * Audio rooms
@@ -90,7 +83,9 @@ The VideoHub Python SDK supports:
 
 ---
 
-## Example: Create Room
+## Examples
+
+### Create Room
 
 ```python
 room = client.rooms.create(
@@ -103,14 +98,10 @@ print(room)
 
 ---
 
-## Example: Generate User Token
+### Generate Room Token
 
 ```python
-token = client.rooms.create_token(
-    room_name="demo-room",
-    user_id="user_123"
-)
-
+token = client.rooms.host_token("demo-room")
 print(token)
 ```
 
@@ -118,7 +109,7 @@ print(token)
 
 ## Error Handling
 
-The SDK raises structured exceptions for API errors.
+The SDK raises structured exceptions for API errors:
 
 ```python
 from videohub.exceptions import VideoHubError
@@ -135,7 +126,6 @@ except VideoHubError as e:
 
 ```
 videohub/
-│
 ├── client.py
 ├── config.py
 ├── constants.py
@@ -158,17 +148,19 @@ videohub/
 
 Full API documentation is available at:
 
-https://docs.videohub.askjitendra.com
+https://docs.videohub.dev
 
 ---
 
 ## Contributing
 
-Contributions are welcome!
+Contributions are welcome.
 
 1. Fork the repository
-2. Create a new branch
-3. Submit a pull request
+2. Create a feature branch (`git checkout -b feature-name`)
+3. Commit your changes (`git commit -m "Add feature"`)
+4. Push to the branch (`git push origin feature-name`)
+5. Open a Pull Request
 
 ---
 
@@ -182,4 +174,4 @@ https://github.com/letscms/videohub-python/issues
 
 ## License
 
-This project is licensed under the **MIT License**.
+This project is licensed under the MIT License.
