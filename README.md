@@ -35,7 +35,7 @@ pip install videohub-python
 ```python
 from videohub.client import Client
 
-client = Client(
+videoHub = Client(
     api_key="vhub_live_xxxxxxxxx",
     app_id="your_app_id",
     app_secret="your_app_secret",
@@ -44,13 +44,13 @@ client = Client(
 )
 
 # Create a room
-client.rooms.create(
+videoHub.rooms.create(
     room_name="my-room",
     max_participants=5
 )
 
 # Generate a host token
-token = client.rooms.host_token("my-room")
+token = videoHub.rooms.host_token("my-room")
 
 print(token)
 ```
@@ -74,13 +74,13 @@ All API requests require the following credentials:
 ## Features
 
 * Video calling
-* Audio rooms
+* Audio calling
 * Screen sharing
 * Room management
 * Call management
 * Admin APIs
 * Secure authentication
-
+* & more
 ---
 
 ## Examples
@@ -88,7 +88,7 @@ All API requests require the following credentials:
 ### Create Room
 
 ```python
-room = client.rooms.create(
+room = videoHub.rooms.create(
     room_name="demo-room",
     max_participants=5
 )
@@ -101,8 +101,12 @@ print(room)
 ### Generate Room Token
 
 ```python
-token = client.rooms.host_token("demo-room")
-print(token)
+token = videoHub.rooms.host_token("demo-room")
+
+print(json.dumps({
+    "token": token["token"],
+    "rtc": videoHub.rtc
+}, indent=4))
 ```
 
 ---
@@ -118,6 +122,20 @@ try:
     client.rooms.create("room1")
 except VideoHubError as e:
     print(e)
+```
+
+
+---
+
+### Subscriber
+
+```python
+auth = videoHub.rooms.guest_token("demo-room", "app_id")
+
+print(json.dumps({
+    "token": auth["token"],
+    "rtc": videoHub.rtc
+}, indent=4))
 ```
 
 ---

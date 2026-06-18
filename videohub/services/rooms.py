@@ -26,10 +26,10 @@ class RoomService:
         )
         
 
-    async def guest_token(self, room_name: str):
+    async def guest_token(self, room_name: str, app_id: str):
 
         return await self.http.post(
             "/rooms/token/guest",
-            {"room_name": room_name},
+            {"room_name": room_name, "app_id": app_id},
             auth_required=False
         )

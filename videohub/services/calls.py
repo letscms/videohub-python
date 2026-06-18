@@ -50,10 +50,10 @@ class CallService:
         )
 
     
-    async def guest_token(self, call_id: str):
+    async def guest_token(self, call_id: str, app_id: str):
         return await self.http.post(
             "/call/guest/token",
-            {"call_id": call_id},
+            {"call_id": call_id, "app_id": app_id},
             auth_required=False
         )
 

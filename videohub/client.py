@@ -6,6 +6,7 @@ from .services.auth import AuthService
 from .services.rooms import RoomService
 from .services.calls import CallService
 from .services.admin import AdminService
+from .attachments import AttachmentsAPI
 
 from .ws import WSClient
 
@@ -47,18 +48,25 @@ class Client:
 
         self.http = HTTPClient(self.config)
 
-        # services
         self.auth = AuthService(self.http)
         self.rooms = RoomService(self.http)
         self.calls = CallService(self.http, self.config)
         self.admin = AdminService(self.http)
-        self.ws_url = WS_URL
-        # realtime
+        self.attachments = AttachmentsAPI(self.http)
+        self.rtc = WS_URL
         self.ws = WSClient(WS_URL)
 
     async def close(self):
-        await self.http.close()
-        await self.ws.close()
+
+        try:
+            await self.http.close()
+        except Exception:
+            pass
+
+        try:
+            await self.ws.close()
+        except Exception:
+            pass
 
     async def __aenter__(self):
         return self
